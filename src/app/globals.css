@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@layer base {
+  :root {
+    --color-herobg: 'linear-gradient(102.31deg, rgba(128, 0, 0, 0.12) -1.54%, rgba(128, 0, 0, 0.06) 18.74%, rgba(128, 0, 0, 0.08) 48.29%, rgba(128, 0, 0, 0.1) 79.52%, rgba(128, 0, 0, 0.05) 100%)';
+  }
+
+  .btn {
+    @apply w-[120px] h-[52px] rounded-lg border;
+  }
+
+  section {
+    @apply tablet:px-20 sm:px-10 px-5;
+  }
+
+  h1 {
+    @apply tablet:text-5xl text-3xl font-semibold;
+  }
+}
+
+.herobg {
+  background: linear-gradient(
+    102.31deg,
+    rgba(128, 0, 0, 0.12) -1.54%,
+    rgba(128, 0, 0, 0.06) 18.74%,
+    rgba(128, 0, 0, 0.08) 48.29%,
+    rgba(128, 0, 0, 0.1) 79.52%,
+    rgba(128, 0, 0, 0.05) 100%
+  );
+}
