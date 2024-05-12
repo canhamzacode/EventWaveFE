@@ -4,3 +4,4 @@ export * from './Discover';
 export * from './Faq';
 export * from './Newsletter';
 export * from './Footer';
+export * from './CustomInput';
