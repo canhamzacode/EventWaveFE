@@ -4,12 +4,19 @@ import { CustomInput } from '@/components';
 import { signInSchema } from '@/config/schema';
 import useSubmit from '@/hooks/useSubmit';
 import Image from 'next/image';
+import Link from 'next/link';
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const Signup = () => {
   const { register, handleSubmit, errors } = useSubmit(signInSchema);
 
-  const signUserIn = (data: any) => {
-    console.log(data);
+  const signUserIn = (data: unknown) => {
+    const formData = data as FormData;
+    console.log(formData);
   };
 
   return (
@@ -37,7 +44,9 @@ const Signup = () => {
             type="password"
           />
           <div className="flex items-end justify-end">
-            <p className="text-base underline text-primary">Forgot Password?</p>
+            <Link href="/auth/forget-password" className="text-base underline text-primary">
+              Forgot Password?
+            </Link>
           </div>
         </div>
       </div>

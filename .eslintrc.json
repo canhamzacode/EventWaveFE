@@ -61,6 +61,7 @@
     "no-nested-ternary": "off",
     "jsx-a11y/media-has-caption": "off",
     "react/self-closing-comp": "off",
-    "jsx-a11y/control-has-associated-label": "off"
+    "jsx-a11y/control-has-associated-label": "off",
+    "unicorn/consistent-function-scoping": "off"
   }
 }

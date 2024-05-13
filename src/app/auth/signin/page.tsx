@@ -5,12 +5,18 @@ import { signInSchema } from '@/config/schema';
 import useSubmit from '@/hooks/useSubmit';
 import Image from 'next/image';
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
+const signUserIn = (data: unknown) => {
+  const formData = data as FormData;
+  console.log(formData);
+};
+
 const Signin = () => {
   const { register, handleSubmit, errors } = useSubmit(signInSchema);
-
-  const signUserIn = (data: any) => {
-    console.log(data);
-  };
 
   return (
     <form onSubmit={handleSubmit(signUserIn)} className="w-full grid gap-8">

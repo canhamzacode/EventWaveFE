@@ -1,14 +1,16 @@
+import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
+
 interface CustomInputPropType {
   type: string;
   placeholder: string;
-  register: any;
+  register: (name: string) => UseFormRegisterReturn;
   name: string;
-  errors: any;
+  errors: FieldErrors<{ [x: string]: string }>;
   label: string;
   customStyle?: string;
   readonly?: boolean;
   value?: string;
-  onChange?: (e: any) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const CustomInput = ({
@@ -42,7 +44,9 @@ const CustomInput = ({
         onChange={onChange}
       />
     </div>
-    {errors[name] && <p className="text-red-600 capitalize text-sm">{errors[name].message}</p>}
+    {errors[name] && errors[name]?.message && (
+      <p className="text-red-600 capitalize text-sm">{errors[name]?.message}</p>
+    )}
   </div>
 );
 

@@ -51,7 +51,7 @@ const Footer = () => (
         </div>
         <p>© 2012-2023, All Rights Reserved</p>
       </div>
-      <div className="w-full flex items-center gap-4 text-white">
+      <div className="w-full flex items-center md:justify-end justify-start gap-4 text-white">
         <button className="w-[40px] h-[40px] bg-primary rounded-[50%] flex items-center justify-center">
           <FaFacebook size={25} />
         </button>
