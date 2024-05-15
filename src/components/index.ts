@@ -5,3 +5,6 @@ export * from './Faq';
 export * from './Newsletter';
 export * from './Footer';
 export * from './CustomInput';
+export * from './AppHeader';
+export * from './SelectInterest';
+export * from './SelectLocation';

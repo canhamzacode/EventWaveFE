@@ -13,6 +13,7 @@ const config: Config = {
         heroBg: 'var(--color-heroBg)',
         lightGrey: '#FEFEFE',
         lightPrimary: '#B56B6B',
+        lighterPrimary: '#F2E6E6',
         darkGrey: '#1C1C1C',
         text: '#3B3B3B',
         dark: '#1C1C1C'
