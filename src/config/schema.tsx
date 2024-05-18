@@ -13,3 +13,10 @@ export const resetPasswordSchema = yup.object().shape({
   password: yup.string().min(8).required('Password Is A Required Field'),
   confirmPassword: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match')
 });
+
+export const filterSchema = yup.object().shape({
+  location: yup.string(),
+  date: yup.string(),
+  eventType: yup.string(),
+  eventPricing: yup.string()
+});

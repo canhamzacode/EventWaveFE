@@ -1,17 +1,4 @@
-import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
-
-interface CustomInputPropType {
-  type: string;
-  placeholder: string;
-  register: (name: string) => UseFormRegisterReturn;
-  name: string;
-  errors: FieldErrors<{ [x: string]: string }>;
-  label: string;
-  customStyle?: string;
-  readonly?: boolean;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { CustomInputPropType } from '@/types/index.t';
 
 const CustomInput = ({
   type,
