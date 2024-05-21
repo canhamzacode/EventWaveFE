@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalContext from '@/context/modalContext';
 import useModal from '@/hooks/useModal';
 import { AppHeader } from '../AppHeader';
 import { Footer } from '../Footer';
 import { Filter } from '../Filter';
+import { Logout } from '../Logout';
 
 const CustomApplayout = ({
   children
@@ -13,6 +14,7 @@ const CustomApplayout = ({
   children: React.ReactNode;
 }>) => {
   const { toggleModal, showModal } = useModal();
+  const [showLogout, setShowLogout] = useState(false);
 
   useEffect(() => {
     // disable scroll bar if modal is open
@@ -23,12 +25,17 @@ const CustomApplayout = ({
 
   const contextValue = React.useMemo(() => ({ toggleModal }), [toggleModal]);
 
+  const toggleLogoutModal = () => {
+    setShowLogout(!showLogout);
+  };
+
   return (
     <ModalContext.Provider value={contextValue}>
       <div>
-        <AppHeader />
+        <AppHeader toggleModal={toggleLogoutModal} />
         {showModal && <Filter toggleModal={toggleModal} />}
         {children}
+        {showLogout && <Logout toggleModal={toggleLogoutModal} />}
         <Footer />
       </div>
     </ModalContext.Provider>

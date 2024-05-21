@@ -6,7 +6,11 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 
-const AppHeader = () => {
+interface AppHeaderProps {
+  toggleModal: () => void;
+}
+
+const AppHeader = ({ toggleModal }: AppHeaderProps) => {
   const [showSearch, setShowSearch] = useState(false);
   const router = useRouter();
   const [search, setSearch] = useState('' as string);
@@ -45,7 +49,7 @@ const AppHeader = () => {
         <button onClick={toggleSearch} className="sm:hidden flex">
           <CiSearch className="text-darkGrey" size={25} />
         </button>
-        <div className="w-[40px] h-[40px] bg-slate-200 rounded-[50%]"></div>
+        <div onClick={toggleModal} className="w-[40px] h-[40px] bg-slate-200 rounded-[50%]"></div>
         <p>User’s Name</p>
       </div>
     </section>
