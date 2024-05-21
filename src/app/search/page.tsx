@@ -3,7 +3,6 @@
 import { CustomApplayout, EventCard, FilterBtn, QueryParams } from '@/components';
 import { eventData } from '@/constants';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import React from 'react';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 const Search = ({ params }: { params: { searchId: string } }) => {
@@ -22,7 +21,7 @@ const Search = ({ params }: { params: { searchId: string } }) => {
             </div>
             <FilterBtn />
           </div>
-          <QueryParams queryParams={queryParams} onClear={onClear} onRemove={onRemove} />
+          <QueryParams queryParams={queryParams} onRemove={onRemove} onClear={onClear} />
           <div className="grid tablet:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
             {eventData.map((event, index) => (
               <EventCard

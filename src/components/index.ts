@@ -13,3 +13,4 @@ export * from './EventCard';
 export * from './CustomApplayout';
 export * from './CustomModal';
 export * from './Filter';
+export * from './QueryParams';

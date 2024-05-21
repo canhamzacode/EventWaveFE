@@ -5,8 +5,8 @@ const CustomModal = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <div className="w-full z-10 top-0 absolute min-h-screen bg-lightGrey/20 flex items-center justify-center">
-    <div className="w-full">{children}</div>
+  <div className="w-full z-10 top-0 absolute min-h-screen bg-text/55 flex items-center justify-center">
+    <div className="w-full p-4">{children}</div>
   </div>
 );
 

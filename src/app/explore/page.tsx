@@ -1,8 +1,7 @@
-import { CustomApplayout, EventCard } from '@/components';
+import { CustomApplayout, EventCard, FilterBtn } from '@/components';
 import { eventData } from '@/constants';
 import Link from 'next/link';
 import React from 'react';
-import { CiFilter } from 'react-icons/ci';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 const page = () => (
@@ -16,10 +15,7 @@ const page = () => (
             </Link>
             <h3 className="md:text-2xl text-xl font-bold">Explore other Events</h3>
           </div>
-          <button className="btn flex items-center justify-center gap-2 md:w-[128px] w-full bg-primary text-white font-bold">
-            <CiFilter size={20} />
-            Filter
-          </button>
+          <FilterBtn />
         </div>
         <div className="grid tablet:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
           {eventData.map((event, index) => (
