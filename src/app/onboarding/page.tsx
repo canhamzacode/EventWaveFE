@@ -1,6 +1,6 @@
 'use client';
 
-import { AppHeader, SelectInterest, SelectLocation } from '@/components';
+import { CustomApplayout, SelectInterest, SelectLocation } from '@/components';
 import { useState } from 'react';
 
 const Onboarding = () => {
@@ -10,8 +10,7 @@ const Onboarding = () => {
   };
 
   return (
-    <div>
-      <AppHeader />
+    <CustomApplayout hideFooter>
       <div className="mt-[88px]">
         <div className="w-full mx-auto max-w-[840px]  grid gap-10 p-5">
           <div className="grid gap-9">
@@ -45,7 +44,7 @@ const Onboarding = () => {
           {/* <button onClick={handleSubmit}>Submit</button> */}
         </div>
       </div>
-    </div>
+    </CustomApplayout>
   );
 };
 
