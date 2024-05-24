@@ -17,7 +17,8 @@ const config: Config = {
         darkGrey: '#1C1C1C',
         text: '#3B3B3B',
         dark: '#1C1C1C',
-        secondary: '#F2E6E6'
+        secondary: '#F2E6E6',
+        offWhite: '#B0B0B0'
       },
       screens: {
         tablet: '970px'

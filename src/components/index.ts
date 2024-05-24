@@ -15,3 +15,8 @@ export * from './CustomModal';
 export * from './Filter';
 export * from './QueryParams';
 export * from './Logout';
+export * from './CreateEvent';
+export * from './EventType';
+export * from './EventInfo';
+export * from './EventTag';
+export * from './TicketInfo';

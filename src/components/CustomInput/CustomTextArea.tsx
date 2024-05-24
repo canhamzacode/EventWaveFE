@@ -1,7 +1,7 @@
-import { CustomInputPropType } from '@/types/index.t';
+import React from 'react';
+import { CustomTextAreaProps } from '@/types/index.t';
 
-const CustomInput = ({
-  type,
+const CustomTextArea = ({
   placeholder,
   register,
   name,
@@ -11,13 +11,12 @@ const CustomInput = ({
   readonly,
   value,
   onChange
-}: CustomInputPropType) => (
+}: CustomTextAreaProps) => (
   <div className="w-full flex flex-col gap-2">
     <label htmlFor={name} className="text-base font-bold">
       {label}
     </label>
-    <input
-      type={type}
+    <textarea
       placeholder={placeholder}
       className={`border outline-none w-full  p-3 active:border-primary focus:border-primary rounded-lg  border-gray-300 ${customStyle || 'placeholder:text-black'}`}
       {...register(name)}
@@ -31,4 +30,4 @@ const CustomInput = ({
   </div>
 );
 
-export default CustomInput;
+export default CustomTextArea;

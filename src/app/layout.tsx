@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
+import { StoreProvider } from '@/redux/slices';
 
 const nunito = Nunito({ subsets: ['latin'] });
 
@@ -14,9 +15,11 @@ const layout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html lang="en">
-    <body className={`${nunito.className} text-text`}>{children}</body>
-  </html>
+  <StoreProvider>
+    <html lang="en">
+      <body className={`${nunito.className} text-text`}>{children}</body>
+    </html>
+  </StoreProvider>
 );
 
 export default layout;

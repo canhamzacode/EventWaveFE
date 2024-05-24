@@ -54,8 +54,8 @@ const Filter = ({ toggleModal }: FilterProp) => {
         className="w-full max-w-[896px] p-8 rounded-2xl bg-white mx-auto flex flex-col gap-6"
       >
         <h2 className="md:text-2xl text-xl font-bold">Search Filter</h2>
-        <div className="w-full grid gap-6">
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+        <div className="w-full grid md:gap-6 gap-3">
+          <div className="grid md:grid-cols-2 grid-cols-1 md:gap-6 gap-3">
             <CustomSelectInput
               options={locationSelectOptions}
               label="Location"
@@ -71,7 +71,7 @@ const Filter = ({ toggleModal }: FilterProp) => {
               errors={errors}
             />
           </div>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+          <div className="grid md:grid-cols-2 grid-cols-1 md:gap-6 gap-3">
             <CustomSelectInput
               options={eventTypeSelectOptions}
               label="Event Type"
@@ -88,7 +88,7 @@ const Filter = ({ toggleModal }: FilterProp) => {
             />
           </div>
         </div>
-        <div className="w-full flex items-center justify-center gap-6">
+        <div className="w-full flex items-center justify-center md:gap-6 gap-3">
           <button
             type="button"
             onClick={toggleModal}

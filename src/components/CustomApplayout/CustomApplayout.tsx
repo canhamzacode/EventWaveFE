@@ -20,10 +20,10 @@ const CustomApplayout = ({
 
   useEffect(() => {
     // disable scroll bar if modal is open
-    if (showModal) {
+    if (showModal || showLogout) {
       document.body.style.overflow = 'hidden';
     }
-  }, [showModal]);
+  }, [showModal, showLogout]);
 
   const contextValue = React.useMemo(
     () => ({ toggleModal, toggleLogout }),

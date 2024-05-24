@@ -25,7 +25,9 @@ const AppHeader = ({ toggleModal }: AppHeaderProps) => {
   };
 
   return (
-    <section className="w-full sm:py-0 py-[18px] bg-white flex justify-between items-center relative">
+    <section
+      className={`w-full sm:py-0 py-[18px] bg-white flex justify-between items-center relative ${showSearch ? 'mb-[80px]' : ''}`}
+    >
       <div className="flex items-center sm:gap-20 gap-3 py-[18px]">
         <Link href="/">
           <div className="w-[133px] h-[16px]">
@@ -33,7 +35,7 @@ const AppHeader = ({ toggleModal }: AppHeaderProps) => {
           </div>
         </Link>
         <div
-          className={`max-w-[380px] w-[80%] py-3 rounded-lg border border-darkGrey items-center gap-2 px-4 ${showSearch ? 'flex absolute top-[90px] w-full left-' : 'sm:flex hidden'}`}
+          className={`w-full max-w-[380px]  py-3 rounded-lg border border-darkGrey items-center gap-2 px-4 ${showSearch ? 'flex absolute top-[75px] w-[90%] left-[5%]' : 'sm:flex hidden'}`}
         >
           <CiSearch className="text-darkGrey" size={25} />
           <input
