@@ -3,8 +3,9 @@
 import React from 'react';
 import { useSubmit } from '@/hooks';
 import { createEventSchema } from '@/config/schema';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setEventInfo } from '@/redux/slices/eventSlice';
+import { RootState } from '@/redux/store';
 import { EventInfoPropType } from '@/types/index.t';
 import { CustomInput } from '../CustomInput';
 import CustomTextArea from '../CustomInput/CustomTextArea';
@@ -16,16 +17,17 @@ interface EventInfoProps {
 
 const EventInfo = ({ nextStep, prevStep }: EventInfoProps) => {
   const dispatch = useDispatch();
-  const { register, errors, handleSubmit } = useSubmit(createEventSchema);
+  const eventInfo = useSelector((state: RootState) => state.event.eventInfo);
+  const { register, errors, handleSubmit } = useSubmit(createEventSchema, eventInfo);
 
-  const onSubit = (data: unknown) => {
+  const onSubmit = (data: unknown) => {
     const formData = data as EventInfoPropType;
     dispatch(setEventInfo(formData));
     nextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubit)} className="w-full grid gap-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full grid gap-8">
       <div className="w-full grid grid-cols-2 gap-5">
         <CustomInput
           errors={errors}

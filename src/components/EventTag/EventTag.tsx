@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import { RootState } from '@/redux/store';
+import React, { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEventTags as storeEventTag } from '@/redux/slices';
 
 const suggestions = [
   'Pop',
@@ -26,48 +28,47 @@ interface EventTagProps {
 
 const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
   const dispatch = useDispatch();
+  const allEventTags = useSelector((state: RootState) => state.event.eventTags);
   const [eventTags, setEventTags] = useState<string[]>([]);
-  const [userTags, setUserTags] = useState<string[]>([]);
   const [userTag, setUserTag] = useState('');
 
-  const Proceed = () => {
-    dispatch({ type: 'SET_EVENT_TAGS', payload: [...eventTags, ...userTags] });
-    nextStep();
-  };
+  // Fetch initial tags from Redux store
+  useEffect(() => {
+    if (allEventTags) {
+      setEventTags(allEventTags);
+    }
+  }, [allEventTags]);
 
+  // Handle pressing the Enter key
   const onKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (
-      event.key === 'Enter' &&
-      userTag.trim() !== '' &&
-      !userTags.includes(userTag.trim()) &&
-      !eventTags.includes(userTag.trim())
-    ) {
-      setUserTags((prev) => [...prev, userTag.trim()]);
+    if (event.key === 'Enter' && userTag.trim() !== '' && !eventTags.includes(userTag.trim())) {
+      setEventTags((prev) => [...prev, userTag.trim()]);
       setUserTag('');
+      event.preventDefault(); // Prevent form submission on Enter
     }
   };
 
+  // Handle selecting/deselecting default tags
   const handleEventTags = (tag: string) => {
-    if (eventTags.includes(tag)) {
-      setEventTags((prev) => prev.filter((t) => t !== tag));
-    } else {
-      setEventTags((prev) => [...prev, tag]);
-    }
+    setEventTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   };
 
+  // Handle removing tags
   const handleUserTags = (tag: string) => {
-    setUserTags((prev) => prev.filter((t) => t !== tag));
+    setEventTags((prev) => prev.filter((t) => t !== tag));
   };
 
-  const clearAllUserSelect = () => {
-    setUserTags([]);
+  // Handle proceeding to the next step
+  const Proceed = () => {
+    dispatch(storeEventTag(eventTags));
+    nextStep();
   };
 
   return (
     <div className="w-full grid gap-10">
       <div className="grid gap-4">
         <div className="flex flex-wrap gap-6">
-          {userTags.map((tag, index) => (
+          {eventTags.map((tag, index) => (
             <button
               key={index}
               className="px-4 py-3 border-secondary rounded-lg bg-[#CB9696] border flex items-center gap-2 text-xl"
@@ -76,8 +77,8 @@ const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
               <IoClose size={20} onClick={() => handleUserTags(tag)} />
             </button>
           ))}
-          {userTags?.length > 0 && (
-            <button onClick={clearAllUserSelect} className="text-xl text-primary underline">
+          {eventTags.length > 0 && (
+            <button onClick={() => setEventTags([])} className="text-xl text-primary underline">
               Clear All
             </button>
           )}

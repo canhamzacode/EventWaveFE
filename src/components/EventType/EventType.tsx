@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RiUserLocationLine, RiVideoOnLine } from 'react-icons/ri';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setEventType } from '@/redux/slices/eventSlice';
+import { RootState } from '@/redux/store';
 import EventTypeCard from './EventTypeCard';
 
 interface EventTypeProps {
@@ -13,11 +14,20 @@ interface EventTypeProps {
 const EventType = ({ nextStep }: EventTypeProps) => {
   const dispatch = useDispatch();
   const [eventType, setEventTypes] = useState('virtual');
+  const eventCategory = useSelector((state: RootState) => state.event.eventType);
 
   const changeEventType = (type: string) => {
     setEventTypes(type);
     dispatch(setEventType(type));
   };
+
+  useEffect(() => {
+    if (eventCategory) {
+      setEventTypes(eventCategory);
+    } else {
+      dispatch(setEventType(eventType));
+    }
+  }, [eventCategory, dispatch, eventType]);
 
   return (
     <div className="grid gap-8">

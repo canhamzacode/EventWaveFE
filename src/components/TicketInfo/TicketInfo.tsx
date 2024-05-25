@@ -3,6 +3,9 @@
 import { ticketInfoSchema } from '@/config/schema';
 import { useSubmit } from '@/hooks';
 import React from 'react';
+import { setTicketInfo } from '@/redux/slices';
+import { useDispatch } from 'react-redux';
+import { TicketInfoPropType } from '@/types/index.t';
 import CustomTextArea from '../CustomInput/CustomTextArea';
 import { CustomInput, CustomSelectInput } from '../CustomInput';
 
@@ -19,10 +22,16 @@ interface TicketInfoProps {
 
 const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
   const { register, handleSubmit, errors } = useSubmit(ticketInfoSchema);
+  const dispatchEvent = useDispatch();
 
   const onSubit = (data: unknown) => {
-    const formData = data as FormData;
+    const formData = data as TicketInfoPropType;
+    dispatchEvent(setTicketInfo(formData));
     console.log(formData);
+  };
+
+  const handleProceed = () => {
+    nextStep();
   };
 
   return (
@@ -34,7 +43,7 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
         register={register}
         placeholder="Event Location"
       />
-      <div className="grid gap-6 md:grid-cols-2 gric-cols-1">
+      <div className="w-full grid gap-6 md:grid-cols-2 grid-cols-1">
         <CustomSelectInput
           options={eventTypeOption}
           label="Location"
@@ -51,7 +60,7 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
           placeholder="₦00,000.00"
         />
       </div>
-      <div className="grid gap-6 md:grid-cols-2 gric-cols-1">
+      <div className="w-full grid gap-6 md:grid-cols-2 grid-cols-1">
         <CustomInput
           errors={errors}
           label="Number of Available Tickets"
@@ -77,7 +86,7 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
         >
           Back
         </button>
-        <button onClick={nextStep} className="btn w-[156px] bg-primary text-white border-0">
+        <button onClick={handleProceed} className="btn w-[156px] bg-primary text-white border-0">
           Submit
         </button>
       </div>

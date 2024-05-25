@@ -43,3 +43,11 @@ export interface EventInfoPropType {
   eventStartTime: string;
   eventEndTime: string;
 }
+
+export interface TicketInfoPropType {
+  eventlocation: string;
+  eventType: string;
+  ticketPrice: string;
+  availableTickets: number;
+  registrationClose: string;
+}
