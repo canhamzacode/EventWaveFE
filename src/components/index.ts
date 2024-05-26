@@ -21,3 +21,4 @@ export * from './EventInfo';
 export * from './EventTag';
 export * from './TicketInfo';
 export * from './Sucess';
+export * from './EventBanner';

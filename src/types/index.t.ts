@@ -45,7 +45,7 @@ export interface EventInfoPropType {
 }
 
 export interface TicketInfoPropType {
-  eventlocation: string;
+  eventLocation: string;
   eventType: string;
   ticketPrice: string;
   availableTickets: number;

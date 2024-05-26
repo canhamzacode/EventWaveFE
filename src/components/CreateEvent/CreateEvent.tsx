@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { resetEventState } from '@/redux/slices';
 import { CustomModal } from '../CustomModal';
 import { EventType } from '../EventType';
 import { EventInfo } from '../EventInfo';
@@ -14,6 +16,7 @@ interface CreateEventProps {
 
 const CreateEvent = ({ toggleModal }: CreateEventProps) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const dispatch = useDispatch();
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -23,6 +26,11 @@ const CreateEvent = ({ toggleModal }: CreateEventProps) => {
     setCurrentStep(currentStep - 1);
   };
 
+  const resetAndCloseModal = () => {
+    dispatch(resetEventState());
+    setCurrentStep(1);
+    toggleModal();
+  };
   const renderStepDescription = () => {
     switch (currentStep) {
       case 1: {
@@ -58,7 +66,14 @@ const CreateEvent = ({ toggleModal }: CreateEventProps) => {
         return <TicketInfo nextStep={nextStep} prevStep={prevStep} />;
       }
       case 5: {
-        return <Sucess />;
+        return (
+          <Sucess
+            title="Event Creation Successful"
+            description="Your event has been successfully created! Promote your event to attract attendees."
+            cta="Go Back to Timeline"
+            ctaAction={resetAndCloseModal}
+          />
+        );
       }
       default: {
         return null;
@@ -70,7 +85,7 @@ const CreateEvent = ({ toggleModal }: CreateEventProps) => {
     <CustomModal toggleModal={toggleModal}>
       <div className="w-full md:w-[834px] rounded-2xl bg-white mx-auto flex flex-col gap-8 md:px-14 md:py-12 p-8">
         <div className="w-full text-center grid gap-3">
-          <h2 className="text-3xl font-bold">Create An Event </h2>
+          {currentStep < 5 && <h2 className="text-3xl font-bold">Create An Event </h2>}
           <p>{renderStepDescription()}</p>
         </div>
         {currentStep < 5 && (

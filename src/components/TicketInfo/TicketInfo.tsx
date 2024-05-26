@@ -22,12 +22,25 @@ interface TicketInfoProps {
 
 const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
   const { register, handleSubmit, errors } = useSubmit(ticketInfoSchema);
+  const [submissionError, setSubmissionError] = React.useState<string | null>(null);
   const dispatchEvent = useDispatch();
 
-  const onSubit = (data: unknown) => {
-    const formData = data as TicketInfoPropType;
-    dispatchEvent(setTicketInfo(formData));
-    console.log(formData);
+  const onSubmit = async (data: TicketInfoPropType) => {
+    try {
+      // Clear previous submission errors
+      setSubmissionError(null);
+
+      // Dispatch the form data
+      dispatchEvent(setTicketInfo(data));
+      console.log(data);
+
+      // Proceed to the next step
+      nextStep();
+    } catch (error) {
+      // Set submission error
+      setSubmissionError('Failed to submit the form. Please try again.');
+      console.error('Submission error:', error);
+    }
   };
 
   const handleProceed = () => {
@@ -35,7 +48,8 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubit)} className="w-full grid gap-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full grid gap-8">
+      {submissionError && <div className="text-red-600">{submissionError}</div>}
       <CustomTextArea
         errors={errors}
         label="Event Location"

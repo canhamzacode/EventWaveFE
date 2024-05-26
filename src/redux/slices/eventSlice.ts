@@ -1,7 +1,14 @@
+import { EventInfoPropType, TicketInfoPropType } from '@/types/index.t';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// Define the initial state
-const initialEventState = {
+interface EventState {
+  eventType: string;
+  eventInfo: EventInfoPropType;
+  eventTags: string[];
+  ticketInfo: TicketInfoPropType;
+}
+
+const initialEventState: EventState = {
   eventType: '',
   eventInfo: {
     eventName: '',
@@ -14,7 +21,7 @@ const initialEventState = {
   },
   eventTags: [],
   ticketInfo: {
-    eventlocation: '',
+    eventLocation: '',
     eventType: '',
     ticketPrice: '',
     availableTickets: 0,
@@ -22,7 +29,6 @@ const initialEventState = {
   }
 };
 
-// Create the slice
 const eventSlice = createSlice({
   name: 'event',
   initialState: initialEventState,
@@ -30,18 +36,19 @@ const eventSlice = createSlice({
     setEventType: (state, action: PayloadAction<string>) => {
       state.eventType = action.payload;
     },
-    setEventInfo: (state, action: PayloadAction<typeof initialEventState.eventInfo>) => {
+    setEventInfo: (state, action: PayloadAction<EventInfoPropType>) => {
       state.eventInfo = action.payload;
     },
     setEventTags: (state, action: PayloadAction<string[]>) => {
-      state.eventTags = action.payload as string[];
+      state.eventTags = action.payload;
     },
-    setTicketInfo: (state, action: PayloadAction<typeof initialEventState.ticketInfo>) => {
+    setTicketInfo: (state, action: PayloadAction<TicketInfoPropType>) => {
       state.ticketInfo = action.payload;
-    }
+    },
+    resetEventState: () => initialEventState
   }
 });
 
-// Export the actions and reducer
-export const { setEventType, setEventInfo, setEventTags, setTicketInfo } = eventSlice.actions;
+export const { setEventType, setEventInfo, setEventTags, setTicketInfo, resetEventState } =
+  eventSlice.actions;
 export const eventReducer = eventSlice.reducer;
