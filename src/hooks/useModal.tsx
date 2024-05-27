@@ -10,6 +10,7 @@ const useModal = () => {
   }, [showModal]);
 
   const toggleModal = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowModal(!showModal);
   };
 

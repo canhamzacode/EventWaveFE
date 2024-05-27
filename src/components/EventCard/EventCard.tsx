@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { RiTimerLine } from 'react-icons/ri';
 import { SlLocationPin } from 'react-icons/sl';
@@ -29,7 +30,9 @@ const EventCard = ({ title, img, location, time, month, day, status, paid }: Eve
       <div className="flex flex-col gap-[22px]">
         <div className="flex gap-[22px]">
           <div className="w-full grid gap-4">
-            <h3 className="text-xl font-bold">{title}</h3>
+            <Link href="/event/1">
+              <h3 className="text-xl font-bold">{title}</h3>
+            </Link>
             <div className="flex items-center gap-2 font-semibold">
               {/* <CiLocationOn size={25} /> */}
               <SlLocationPin size={25} />

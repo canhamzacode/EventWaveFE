@@ -10,12 +10,13 @@ const useSubmit = (schema: any, defaultValues: any = {}) => {
     handleSubmit,
     watch,
     control,
-    formState: { errors }
+    formState: { errors },
+    setValue
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues
   });
-  return { register, handleSubmit, errors, watch, control };
+  return { register, handleSubmit, errors, watch, control, setValue };
 };
 
 export default useSubmit;

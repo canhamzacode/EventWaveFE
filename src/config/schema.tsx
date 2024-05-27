@@ -44,3 +44,14 @@ export const ticketInfoSchema = yup.object().shape({
   availableTickets: yup.number().required('Available ticket is required'),
   registrationClose: yup.date().required('Registration Closeing date is required')
 });
+
+export const registerEventSchema = yup.object().shape({
+  firstName: yup.string().required('First Name is Required'),
+  lastName: yup.string().required('Last Name is Required'),
+  email: yup.string().email().required('Email is Required'),
+  phoneNumber: yup.string().required('Phone Number is Required'),
+  ticketQuantity: yup.number().required('Ticket Quantity is Required'),
+  gender: yup.string(),
+  howDidYouHear: yup.string(),
+  paymentMethod: yup.string().required('Payment Method is Required')
+});

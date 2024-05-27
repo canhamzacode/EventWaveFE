@@ -22,3 +22,4 @@ export * from './EventTag';
 export * from './TicketInfo';
 export * from './Sucess';
 export * from './EventBanner';
+export * from './DashboardCard';

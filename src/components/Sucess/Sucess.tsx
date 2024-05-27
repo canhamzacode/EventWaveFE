@@ -13,7 +13,7 @@ const Sucess = ({ title, description, cta, ctaAction }: SucessPropTypes) => (
     <div>
       <h1>{title}</h1>
     </div>
-    <div className="grid gap-6">
+    <div className="grid gap-6 max-w-[363px] mx-auto">
       <Image src="/successIcon.svg" alt="sucess icon" width={74} height={74} className="mx-auto" />
       <p>{description}</p>
       <button onClick={ctaAction} className="btn w-full bg-primary text-white border-0">
