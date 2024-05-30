@@ -16,8 +16,8 @@ const eventTypeOption = [
 ];
 
 interface TicketInfoProps {
-  nextStep: () => void;
-  prevStep: () => void;
+  nextStep?: () => void;
+  prevStep?: () => void;
 }
 
 const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
@@ -35,7 +35,9 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
       console.log(data);
 
       // Proceed to the next step
-      nextStep();
+      if (nextStep) {
+        nextStep();
+      }
     } catch (error) {
       // Set submission error
       setSubmissionError('Failed to submit the form. Please try again.');
@@ -44,7 +46,9 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
   };
 
   const handleProceed = () => {
-    nextStep();
+    if (nextStep) {
+      nextStep();
+    }
   };
 
   return (
@@ -92,18 +96,20 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
           placeholder="00"
         />
       </div>
-      <div className="w-full flex items-center justify-center gap-5">
-        <button
-          onClick={prevStep}
-          type="button"
-          className="btn w-[156px] border-primary border text-primary"
-        >
-          Back
-        </button>
-        <button onClick={handleProceed} className="btn w-[156px] bg-primary text-white border-0">
-          Submit
-        </button>
-      </div>
+      {prevStep && nextStep && (
+        <div className="w-full flex items-center justify-center gap-5">
+          <button
+            onClick={prevStep}
+            type="button"
+            className="btn w-[156px] border-primary border text-primary"
+          >
+            Back
+          </button>
+          <button onClick={handleProceed} className="btn w-[156px] bg-primary text-white border-0">
+            Submit
+          </button>
+        </div>
+      )}
     </form>
   );
 };

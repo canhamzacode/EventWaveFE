@@ -26,7 +26,7 @@ const EventCard = ({ title, img, location, time, month, day, status, paid }: Eve
         className="rounded-t-xl"
       />
     </div>
-    <div className="p-6">
+    <div className="sm:p-6 p-2">
       <div className="flex flex-col gap-[22px]">
         <div className="flex gap-[22px]">
           <div className="w-full grid gap-4">

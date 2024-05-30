@@ -22,8 +22,8 @@ const suggestions = [
 ];
 
 interface EventTagProps {
-  nextStep: () => void;
-  prevStep: () => void;
+  nextStep?: () => void;
+  prevStep?: () => void;
 }
 
 const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
@@ -61,7 +61,9 @@ const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
   // Handle proceeding to the next step
   const Proceed = () => {
     dispatch(storeEventTag(eventTags));
-    nextStep();
+    if (nextStep) {
+      nextStep();
+    }
   };
 
   return (
@@ -106,15 +108,16 @@ const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
           ))}
         </div>
       </div>
-
-      <div className="w-full flex items-center justify-center gap-5">
-        <button onClick={prevStep} className="btn w-[156px] border-primary border text-primary">
-          Back
-        </button>
-        <button onClick={Proceed} className="btn w-[156px] bg-primary text-white border-0">
-          Proceed
-        </button>
-      </div>
+      {prevStep && nextStep && (
+        <div className="w-full flex items-center justify-center gap-5">
+          <button onClick={prevStep} className="btn w-[156px] border-primary border text-primary">
+            Back
+          </button>
+          <button onClick={Proceed} className="btn w-[156px] bg-primary text-white border-0">
+            Proceed
+          </button>
+        </div>
+      )}
     </div>
   );
 };

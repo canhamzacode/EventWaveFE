@@ -30,8 +30,11 @@ const AppHeader = ({ toggleModal }: AppHeaderProps) => {
     >
       <div className="flex items-center sm:gap-20 gap-3 py-[18px]">
         <Link href="/">
-          <div className="w-[133px] h-[16px]">
+          <div className="w-[133px] h-[16px] md:flex hidden">
             <Image src="/eventWaveLogo.svg" alt="eventwave logo" width={133} height={16} />
+          </div>
+          <div className="w-[36px] h-[16px] md:hidden flex">
+            <Image src="/mobileLogo.svg" alt="eventwave logo" width={36} height={16} />
           </div>
         </Link>
         <div

@@ -38,7 +38,7 @@ const Dashboard = () => {
           <h3 className="text-2xl font-bold">Event Management</h3>
           <p>Effortlessly monitor your created and registered events all in one place</p>
         </div>
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 grid-cols-1 md:gap-8 gap-4">
           <DashboardCard title="10" description="Total Events" />
           <DashboardCard title="10" description="Registered Events" />
           <DashboardCard
