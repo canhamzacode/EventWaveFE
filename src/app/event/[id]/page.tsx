@@ -57,7 +57,7 @@ const Event = ({ params }: { params: { id: string } }) => {
           undoName="Go Back"
         />
       )}
-      {editModal && <EditEvent />}
+      {editModal && <EditEvent toggleModal={editToggle} />}
       <div className="w-full grid gap-6">
         <section className="w-full grid gap-6">
           <div className="w-full flex md:flex-row flex-col md:items-center items-start md:justify-between justify-start gap-5">
@@ -67,8 +67,7 @@ const Event = ({ params }: { params: { id: string } }) => {
             </div>
             <div className="sm:flex grid items-center gap-3 md:w-auto w-full">
               <Link
-                className="btn flex items-center j
-                ustify-center gap-2 md:w-[229px] w-full bg-primary text-white font-bold"
+                className="btn flex items-center justify-center gap-2 md:w-[229px] w-full bg-primary text-white font-bold"
                 href="/event/[id]/checkout"
                 as={`/event/${params.id}/checkout`}
               >

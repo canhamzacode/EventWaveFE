@@ -6,48 +6,59 @@ import React from 'react';
 import { setTicketInfo } from '@/redux/slices';
 import { useDispatch } from 'react-redux';
 import { TicketInfoPropType } from '@/types/index.t';
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormHandleSubmit,
+  UseFormRegisterReturn
+} from 'react-hook-form';
 import CustomTextArea from '../CustomInput/CustomTextArea';
 import { CustomInput, CustomSelectInput } from '../CustomInput';
 
 const eventTypeOption = [
   { label: '', value: '' },
   { label: 'Paid', value: 'paid' },
-  { label: 'Free', value: 'Free' }
+  { label: 'Free', value: 'free' }
 ];
 
 interface TicketInfoProps {
   nextStep?: () => void;
   prevStep?: () => void;
+  register?: (name: string) => UseFormRegisterReturn;
+  errors?: FieldErrors<{ [x: string]: string }>;
+  handleSubmit?: UseFormHandleSubmit<FieldValues>;
 }
 
-const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
-  const { register, handleSubmit, errors } = useSubmit(ticketInfoSchema);
+const TicketInfo = ({
+  nextStep,
+  prevStep,
+  register: propRegister,
+  errors: propErrors,
+  handleSubmit: propHandleSubmit
+}: TicketInfoProps) => {
+  const {
+    register: defaultRegister,
+    handleSubmit: defaultHandleSubmit,
+    errors: defaultErrors
+  } = useSubmit(ticketInfoSchema);
+  const register = propRegister || defaultRegister;
+  const handleSubmit = propHandleSubmit || defaultHandleSubmit;
+  const errors = propErrors || defaultErrors;
+
   const [submissionError, setSubmissionError] = React.useState<string | null>(null);
-  const dispatchEvent = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = async (data: TicketInfoPropType) => {
     try {
-      // Clear previous submission errors
       setSubmissionError(null);
-
-      // Dispatch the form data
-      dispatchEvent(setTicketInfo(data));
+      dispatch(setTicketInfo(data));
       console.log(data);
-
-      // Proceed to the next step
       if (nextStep) {
         nextStep();
       }
     } catch (error) {
-      // Set submission error
       setSubmissionError('Failed to submit the form. Please try again.');
       console.error('Submission error:', error);
-    }
-  };
-
-  const handleProceed = () => {
-    if (nextStep) {
-      nextStep();
     }
   };
 
@@ -64,8 +75,8 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
       <div className="w-full grid gap-6 md:grid-cols-2 grid-cols-1">
         <CustomSelectInput
           options={eventTypeOption}
-          label="Location"
-          name="location"
+          label="Event Type"
+          name="eventType"
           register={register}
           errors={errors}
         />
@@ -93,7 +104,6 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
           name="registrationClose"
           register={register}
           type="date"
-          placeholder="00"
         />
       </div>
       {prevStep && nextStep && (
@@ -105,7 +115,7 @@ const TicketInfo = ({ nextStep, prevStep }: TicketInfoProps) => {
           >
             Back
           </button>
-          <button onClick={handleProceed} className="btn w-[156px] bg-primary text-white border-0">
+          <button type="submit" className="btn w-[156px] bg-primary text-white border-0">
             Submit
           </button>
         </div>

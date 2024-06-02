@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEventTags as storeEventTag } from '@/redux/slices';
+import { Dispatch } from 'redux';
 
 const suggestions = [
   'Pop',
@@ -24,20 +25,29 @@ const suggestions = [
 interface EventTagProps {
   nextStep?: () => void;
   prevStep?: () => void;
+  eventTags?: string[];
+  setEventTags?: (tags: string[]) => void;
+  dispatch?: Dispatch;
 }
 
-const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
+const EventTag = ({
+  nextStep,
+  prevStep,
+  eventTags: propEventTags,
+  setEventTags: propSetEventTags,
+  dispatch: propDispatch
+}: EventTagProps) => {
   const dispatch = useDispatch();
   const allEventTags = useSelector((state: RootState) => state.event.eventTags);
-  const [eventTags, setEventTags] = useState<string[]>([]);
+  const [eventTags, setEventTags] = useState<string[]>(propEventTags || []);
   const [userTag, setUserTag] = useState('');
 
-  // Fetch initial tags from Redux store
+  // Fetch initial tags from Redux store if not provided as props
   useEffect(() => {
-    if (allEventTags) {
+    if (!propEventTags && allEventTags) {
       setEventTags(allEventTags);
     }
-  }, [allEventTags]);
+  }, [allEventTags, propEventTags]);
 
   // Handle pressing the Enter key
   const onKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -60,11 +70,19 @@ const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
 
   // Handle proceeding to the next step
   const Proceed = () => {
-    dispatch(storeEventTag(eventTags));
+    const actionDispatch = propDispatch || dispatch;
+    actionDispatch(storeEventTag(eventTags));
     if (nextStep) {
       nextStep();
     }
   };
+
+  // Handle saving changes
+  useEffect(() => {
+    if (propSetEventTags) {
+      propSetEventTags(eventTags);
+    }
+  }, [eventTags, propSetEventTags]);
 
   return (
     <div className="w-full grid gap-10">
@@ -72,6 +90,7 @@ const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
         <div className="flex flex-wrap gap-6">
           {eventTags.map((tag, index) => (
             <button
+              type="button"
               key={index}
               className="px-4 py-3 border-secondary rounded-lg bg-[#CB9696] border flex items-center gap-2 text-xl"
             >
@@ -80,7 +99,11 @@ const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
             </button>
           ))}
           {eventTags.length > 0 && (
-            <button onClick={() => setEventTags([])} className="text-xl text-primary underline">
+            <button
+              type="button"
+              onClick={() => setEventTags([])}
+              className="text-xl text-primary underline"
+            >
               Clear All
             </button>
           )}
@@ -99,6 +122,7 @@ const EventTag = ({ nextStep, prevStep }: EventTagProps) => {
         <div className="flex flex-wrap gap-6">
           {suggestions.map((data, index) => (
             <button
+              type="button"
               key={index}
               className={`px-4 py-3 border border-darkGrey rounded-lg ${eventTags.includes(data) ? 'bg-primary text-white' : ''}`}
               onClick={() => handleEventTags(data)}

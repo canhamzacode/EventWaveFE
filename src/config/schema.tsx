@@ -21,7 +21,7 @@ export const filterSchema = yup.object().shape({
   eventPricing: yup.string()
 });
 
-export const createEventSchema = yup.object().shape({
+const createEventShape = {
   eventName: yup.string().required('Event Name Is A Required Field'),
   eventImage: yup.string(),
   eventDescription: yup.string().required('Event Description is Required'),
@@ -35,17 +35,17 @@ export const createEventSchema = yup.object().shape({
     .string()
     .required('Event End Time is Required')
     .matches(/^([01]?\d|2[0-3]):[0-5]\d$/, 'Invalid time format. Please use HH:MM format')
-});
+};
 
-export const ticketInfoSchema = yup.object().shape({
-  eventlocation: yup.string().required('Event Location Is Required'),
+const ticketInfoShape = {
+  eventLocation: yup.string().required('Event Location Is Required'),
   eventType: yup.string().required('Event Type is Required'),
   ticketPrice: yup.string().required('Ticket Price is Required'),
   availableTickets: yup.number().required('Available ticket is required'),
   registrationClose: yup.date().required('Registration Closeing date is required')
-});
+};
 
-export const registerEventSchema = yup.object().shape({
+const registerEventShape = {
   firstName: yup.string().required('First Name is Required'),
   lastName: yup.string().required('Last Name is Required'),
   email: yup.string().email().required('Email is Required'),
@@ -54,4 +54,14 @@ export const registerEventSchema = yup.object().shape({
   gender: yup.string(),
   howDidYouHear: yup.string(),
   paymentMethod: yup.string().required('Payment Method is Required')
-});
+};
+
+export const createEventSchema = yup.object().shape(createEventShape);
+
+export const ticketInfoSchema = yup.object().shape(ticketInfoShape);
+
+export const registerEventSchema = yup.object().shape(registerEventShape);
+
+export const eventCreationSchema = yup
+  .object()
+  .shape({ ...createEventShape, ...ticketInfoShape, eventTags: yup.array() });
