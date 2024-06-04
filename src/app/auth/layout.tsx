@@ -22,8 +22,10 @@ const layout = ({
       />
     </div>
     <div className="overflow-x-hidden overflow-y-auto w-full grid tablet:grid-rows-1 grid-rows-[60px,1fr]">
-      <div className="w-full bg-gray-500 tablet:hidden flex">
-        {/* Header Display in mobile view  */}
+      <div className="w-full tablet:hidden flex items-center justify-center">
+        <div className="w-[133px] h-[31px] md:hidden flex">
+          <Image src="/eventWaveLogo.svg" alt="eventwave logo" width={133} height={31} />
+        </div>
       </div>
       <div className="flex items-start justify-center py-10">
         <div className="w-full min-h-full max-w-[500px] flex items-center justify-center p-5">

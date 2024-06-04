@@ -10,7 +10,7 @@ import {
   Success
 } from '@/components';
 import { eventData } from '@/constants';
-import { useModal } from '@/hooks';
+import { useModal, usePrev } from '@/hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
@@ -21,6 +21,8 @@ const Event = ({ params }: { params: { id: string } }) => {
   const { showModal: sucessModal } = useModal();
   const { toggleModal: toggleDelete, showModal: deleteModal } = useModal();
   const { toggleModal: editToggle, showModal: editModal } = useModal();
+
+  const { goBack } = usePrev();
 
   const router = useRouter();
 
@@ -62,7 +64,9 @@ const Event = ({ params }: { params: { id: string } }) => {
         <section className="w-full grid gap-6">
           <div className="w-full flex md:flex-row flex-col md:items-center items-start md:justify-between justify-start gap-5">
             <div className="flex md:items-center items-center gap-4">
-              <IoChevronBackOutline size={25} />
+              <button onClick={goBack}>
+                <IoChevronBackOutline size={25} />
+              </button>
               <h3 className="md:text-2xl text-xl font-bold">Tech Innovators Summit</h3>
             </div>
             <div className="sm:flex grid items-center gap-3 md:w-auto w-full">

@@ -2,6 +2,7 @@
 
 import { CustomApplayout, EventCard, FilterBtn, QueryParams } from '@/components';
 import { eventData } from '@/constants';
+import { usePrev } from '@/hooks';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import React from 'react';
 import { IoChevronBackOutline } from 'react-icons/io5';
@@ -9,13 +10,17 @@ import { IoChevronBackOutline } from 'react-icons/io5';
 const Search = ({ params }: { params: { searchId: string } }) => {
   const { queryParams, onRemove, onClear } = useQueryParams();
 
+  const { goBack } = usePrev();
+
   return (
     <CustomApplayout>
       <div className="w-full grid gap-10">
         <section className="w-full grid gap-6 mt-11">
           <div className="w-full flex md:flex-row flex-col md:items-center items-start md:justify-between justify-start gap-2">
             <div className="flex md:items-center items-center gap-4">
-              <IoChevronBackOutline size={25} />
+              <button onClick={goBack}>
+                <IoChevronBackOutline size={25} />
+              </button>
               <h3 className="md:text-2xl text-xl font-bold">
                 Search results for “{params.searchId}”
               </h3>

@@ -4,6 +4,7 @@ import { CustomInput } from '@/components';
 import { signInSchema } from '@/config/schema';
 import useSubmit from '@/hooks/useSubmit';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface FormData {
   email: string;
@@ -43,7 +44,7 @@ const Signin = () => {
             type="password"
           />
           <div className="flex items-end justify-end">
-            <p className="text-base underline text-primary">Forgot Password?</p>
+            <Link href="/auth/forget-password" className="text-base underline text-primary">Forgot Password?</Link>
           </div>
         </div>
       </div>
@@ -58,7 +59,9 @@ const Signin = () => {
       <div className="text-center">
         <p>
           Don&apos;t have an account?{' '}
-          <span className="text-primary underline cursor-pointer">Sign up</span>
+          <Link href="/auth/signup" className="text-primary underline cursor-pointer">
+            Sign up
+          </Link>
         </p>
       </div>
     </form>

@@ -43,11 +43,7 @@ const Signup = () => {
             register={register}
             type="password"
           />
-          <div className="flex items-end justify-end">
-            <Link href="/auth/forget-password" className="text-base underline text-primary">
-              Forgot Password?
-            </Link>
-          </div>
+          {/* Signup doesnt need forget password */}
         </div>
       </div>
       <button className="btn w-full bg-primary text-white border-0">Sign Up</button>
@@ -61,7 +57,9 @@ const Signup = () => {
       <div className="text-center">
         <p>
           Don&apos;t have an account?{' '}
-          <span className="text-primary underline cursor-pointer">Sign up</span>
+          <Link href="/auth/signin" className="text-primary underline cursor-pointer">
+            Sign In
+          </Link>
         </p>
       </div>
     </form>

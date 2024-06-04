@@ -8,7 +8,7 @@ import {
   EventBanner
 } from '@/components';
 import { registerEventSchema } from '@/config/schema';
-import { useModal, useSubmit } from '@/hooks';
+import { useModal, usePrev, useSubmit } from '@/hooks';
 import React, { useEffect, useState } from 'react';
 import 'react-phone-number-input/style.css';
 import { IoChevronBackOutline } from 'react-icons/io5';
@@ -32,6 +32,8 @@ const EventCheckout = () => {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const { toggleModal, showModal } = useModal();
+
+  const { goBack } = usePrev();
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
@@ -78,7 +80,9 @@ const EventCheckout = () => {
         <section className="w-full grid gap-6 mt-4">
           <div className="w-full flex md:flex-row flex-col md:items-center items-start md:justify-between justify-start gap-5">
             <div className="flex md:items-center items-center gap-4">
-              <IoChevronBackOutline size={25} />
+              <button onClick={goBack}>
+                <IoChevronBackOutline size={25} />
+              </button>
               <h3 className="md:text-2xl text-xl">
                 Tech Innovators Summit \ <span className="font-bold">Checkout</span>
               </h3>
