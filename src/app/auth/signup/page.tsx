@@ -1,10 +1,15 @@
 'use client';
 
-import { CustomInput } from '@/components';
-import { signInSchema } from '@/config/schema';
+import { CustomInput, CustomPassword } from '@/components';
+import { signUpSchema } from '@/config/schema';
 import useSubmit from '@/hooks/useSubmit';
+import { login } from '@/redux/slices';
+import { RootState, AppDispatch } from '@/redux/store';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface FormData {
   email: string;
@@ -12,12 +17,25 @@ interface FormData {
 }
 
 const Signup = () => {
-  const { register, handleSubmit, errors } = useSubmit(signInSchema);
+  const { register, handleSubmit, errors } = useSubmit(signUpSchema);
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+  const { loading, error, user } = useSelector((state: RootState) => state.auth);
 
-  const signUserIn = (data: unknown) => {
-    const formData = data as FormData;
-    console.log(formData);
+  const signUserIn = async (data: FormData) => {
+    console.log(data);
+    try {
+      await dispatch(login(data)).unwrap();
+      // Navigate to the timeline or desired route on successful login
+      // router.push('/timeline');
+    } catch (err: any) {
+      console.error('Login failed:', err.message || err);
+    }
   };
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   return (
     <form onSubmit={handleSubmit(signUserIn)} className="w-full grid gap-8">
@@ -34,19 +52,18 @@ const Signup = () => {
           register={register}
           type="email"
         />
-        <div className="grid gap-2">
-          <CustomInput
-            errors={errors}
-            label="Password"
-            name="password"
-            placeholder="Enter your password"
-            register={register}
-            type="password"
-          />
-          {/* Signup doesnt need forget password */}
-        </div>
+        <CustomPassword
+          errors={errors}
+          label="Password"
+          name="password"
+          placeholder="Enter your password"
+          register={register}
+        />
       </div>
-      <button className="btn w-full bg-primary text-white border-0">Sign Up</button>
+      <button type="submit" className="btn w-full bg-primary text-white border-0">
+        {loading ? 'Signing Up...' : 'Sign Up'}
+      </button>
+      {error && <p className="text-red-500">{error}</p>}
       <button
         type="button"
         className="btn w-full text-primary bg-white border-primary flex items-center justify-center gap-4"

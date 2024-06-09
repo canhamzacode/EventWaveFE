@@ -1,12 +1,19 @@
 import * as yup from 'yup';
 
+const emailError = 'Your Email is Required, ensure it is the Correct Format';
+
 export const signInSchema = yup.object().shape({
-  email: yup.string().email().required('Your Email is Required, ensure it is the Correct Format'),
-  password: yup.string().min(8).required('Password Is A Required Field')
+  email: yup.string().email().required(emailError),
+  password: yup.string().min(8).required('Password is a required field')
+});
+
+export const signUpSchema = yup.object().shape({
+  email: yup.string().email().required(emailError),
+  password: yup.string().min(8).required('Password is a required field')
 });
 
 export const forgetPasswordSchema = yup.object().shape({
-  email: yup.string().email().required('Your Email is Required, ensure it is the Correct Format')
+  email: yup.string().email().required(emailError)
 });
 
 export const resetPasswordSchema = yup.object().shape({

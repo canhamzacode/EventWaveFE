@@ -26,3 +26,4 @@ export * from './DashboardCard';
 export * from './ActionModal';
 export * from './EventDescription';
 export * from './EditEvent';
+export * from './CustomAuthWrapper';

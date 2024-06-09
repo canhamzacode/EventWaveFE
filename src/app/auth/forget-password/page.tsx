@@ -1,5 +1,3 @@
-'use client';
-
 import { CustomInput } from '@/components';
 import { forgetPasswordSchema } from '@/config/schema';
 import useSubmit from '@/hooks/useSubmit';

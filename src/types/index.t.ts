@@ -13,6 +13,18 @@ export interface CustomInputPropType {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface CustomPasswordPropType {
+  placeholder: string;
+  register: (name: string) => UseFormRegisterReturn;
+  name: string;
+  errors: FieldErrors<{ [x: string]: string }>;
+  label: string;
+  customStyle?: string;
+  readonly?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 export interface CustomTextAreaProps {
   placeholder: string;
   register: (name: string) => UseFormRegisterReturn;
