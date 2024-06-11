@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const musicCategories = [
   'Rock',
@@ -56,10 +56,13 @@ const sportCategories = [
 
 type SelectInterestProp = {
   inCreaseStep: () => void;
+  setSelectedTags: (tags: string[]) => void;
+  selectedTags: string[];
 };
 
-const SelectInterest = ({ inCreaseStep }: SelectInterestProp) => {
+const SelectInterest = ({ inCreaseStep, setSelectedTags, selectedTags }: SelectInterestProp) => {
   const [selectedCategories, setSelectedCategories] = useState<Record<string, boolean>>({});
+  const [error, setError] = useState('');
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategories((prevState) => ({
@@ -67,6 +70,19 @@ const SelectInterest = ({ inCreaseStep }: SelectInterestProp) => {
       [category]: !prevState[category]
     }));
   };
+
+  const proceed = () => {
+    if (selectedTags.length < 5) {
+      setError('Please select at least 5 tags');
+      return;
+    }
+    inCreaseStep();
+  };
+
+  useEffect(() => {
+    const tags = Object.keys(selectedCategories).filter((category) => selectedCategories[category]);
+    setSelectedTags(tags);
+  }, [selectedCategories, setSelectedTags]);
 
   const renderCategory = (category: string, index: number) => {
     const isSelected = selectedCategories[category];
@@ -109,8 +125,9 @@ const SelectInterest = ({ inCreaseStep }: SelectInterestProp) => {
           </div>
         </div>
       </div>
+      {error && <p className="text-red-500">{error}</p>}
       <div className="w-full flex items-center justify-center">
-        <button onClick={inCreaseStep} className="btn border-0 w-[152px] bg-primary text-white">
+        <button onClick={proceed} className="btn border-0 w-[152px] bg-primary text-white">
           Next
         </button>
       </div>

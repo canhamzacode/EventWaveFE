@@ -5,22 +5,20 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 const CustomAuthWrapper = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, initialSignup } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
+    if (loading) return; // Wait until loading is finished
+
     if (isAuthenticated) {
-      router.push('/dashboard');
+      if (initialSignup) {
+        router.push('/auth/signup/success');
+      } else {
+        router.push('/dashboard');
+      }
     }
-  }, [isAuthenticated]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  // if (isAuthenticated) {
-  //   return null;
-  // }
+  }, [isAuthenticated, initialSignup, loading, router]);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;

@@ -1,12 +1,47 @@
 'use client';
 
 import { CustomApplayout, SelectInterest, SelectLocation } from '@/components';
-import { useState } from 'react';
+import api from '@/lib/axios';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const Onboarding = () => {
   const [step, setStep] = useState(1);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [location, setLocation] = useState<string>('');
+
+  useEffect(() => {
+    console.log(selectedTags, location);
+  }, [selectedTags, location]);
+
   const inCreaseStep = () => {
     setStep(step + 1);
+  };
+
+  const handleSubmit = () => {
+    if (step === 1) {
+      if (selectedTags.length < 5) {
+        return;
+      }
+      inCreaseStep();
+    } else {
+      if (!location) {
+        return;
+      }
+      try {
+        const response = api.post('/onboarding', { interest: selectedTags, location });
+        console.log(response?.data?.message);
+        // setMessage(response.data.message);
+      } catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          console.log(err);
+          // setError(err.response?.data?.message || 'Something went wrong');
+        } else {
+          console.log('Something went wrong');
+        }
+      }
+      console.log('submit');
+    }
   };
 
   return (
@@ -40,8 +75,23 @@ const Onboarding = () => {
               </p>
             </div>
           </div>
-          {step === 1 ? <SelectInterest inCreaseStep={inCreaseStep} /> : <SelectLocation />}
-          {/* <button onClick={handleSubmit}>Submit</button> */}
+          {step === 1 ? (
+            <SelectInterest
+              inCreaseStep={inCreaseStep}
+              setSelectedTags={setSelectedTags}
+              selectedTags={selectedTags}
+            />
+          ) : (
+            <SelectLocation setLocation={setLocation} />
+          )}
+          {step === 2 && (
+            <button
+              onClick={handleSubmit}
+              className="btn border-0 w-[152px] mx-auto bg-primary text-white"
+            >
+              Get Started
+            </button>
+          )}
         </div>
       </div>
     </CustomApplayout>

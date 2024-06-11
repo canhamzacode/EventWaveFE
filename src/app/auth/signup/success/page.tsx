@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Success = () => (
@@ -12,7 +13,10 @@ const Success = () => (
         Sign Up process has been completed successfully. A verification link has been sent to your
         mail.
       </p>
-      <button className="btn w-full bg-primary text-white border-0">Go to your mail</button>
+
+      <Link href="/auth/signup/emailverification">
+        <button className="btn w-full bg-primary text-white border-0">Go to your mail</button>
+      </Link>
     </div>
   </div>
 );

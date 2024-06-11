@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import ModalContext from '@/context/modalContext';
 import { useAuth } from '@/hooks';
 import { useRouter } from 'next/navigation';
@@ -30,23 +30,19 @@ const CustomApplayout = ({
   }, [isAuthenticated, loading, router]);
 
   useEffect(() => {
-    // disable scroll bar if modal is open
-    if (showModal || showLogout) {
-      document.body.style.overflow = 'hidden';
-    }
+    // Disable scroll bar if any modal is open, re-enable if no modal is open
+    document.body.style.overflow = showModal || showLogout ? 'hidden' : 'auto';
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, [showModal, showLogout]);
 
-  const contextValue = React.useMemo(
-    () => ({ toggleModal, toggleLogout }),
-    [toggleModal, toggleLogout]
-  );
+  const contextValue = useMemo(() => ({ toggleModal, toggleLogout }), [toggleModal, toggleLogout]);
 
-  if (loading) {
-    return <div>Loading...</div>; // Replace with your loading component or spinner
-  }
-
-  if (!isAuthenticated) {
-    return null;
+  if (loading || !isAuthenticated) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -56,7 +52,7 @@ const CustomApplayout = ({
         {showModal && <Filter toggleModal={toggleModal} />}
         {children}
         {showLogout && <Logout toggleModal={toggleLogout} />}
-        {hideFooter ? '' : <Footer />}
+        {!hideFooter && <Footer />}
       </div>
     </ModalContext.Provider>
   );

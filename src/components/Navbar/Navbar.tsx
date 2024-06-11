@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Navbar = () => (
@@ -18,8 +19,12 @@ const Navbar = () => (
     </div>
     <div className="w-[504px] tablet:flex hidden absolute right-0 py-[18px] h-[88px] pl-20 bg-primary"></div>
     <div className="tablet:w-[424px]  top-0 py-[18px] sm:flex hidden gap-6 z-10 justify-end">
-      <button className="btn border-white bg-primary text-white">Login</button>
-      <button className="btn border-white text-primary bg-white">Sign up</button>
+      <Link href="/auth/signin">
+        <button className="btn border-white bg-primary text-white">Login</button>
+      </Link>
+      <Link href="/auth/signup">
+        <button className="btn border-white text-primary bg-white">Sign up</button>
+      </Link>
     </div>
   </section>
 );
