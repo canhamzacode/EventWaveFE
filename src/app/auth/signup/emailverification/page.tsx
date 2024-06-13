@@ -4,11 +4,12 @@ import api from '@/lib/axios';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const EmailVerification = () => {
   const params = useSearchParams();
+  const router = useRouter();
   const token = params.get('token');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -20,6 +21,9 @@ const EmailVerification = () => {
           params: { token }
         });
         setMessage(response.data.message);
+        if (response.status === 200) {
+          router.push('/onboarding');
+        }
       } catch (err: unknown) {
         if (axios.isAxiosError(err)) {
           setError(err.response?.data?.message || 'Something went wrong');
@@ -32,7 +36,7 @@ const EmailVerification = () => {
     if (token) {
       verifyEmail();
     }
-  }, [token]);
+  }, [token, router]);
 
   return (
     <div className="grid gap-8 text-center">
